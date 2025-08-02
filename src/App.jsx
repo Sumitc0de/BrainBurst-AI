@@ -5,6 +5,7 @@ import PrivateRoute from "./components/PrivateRoute"; // Adjust path as needed
 import Home from "./pages/Home";
 import CreateQuiz from "./pages/CreateQuiz";
 import QuizProvider from "./context/QuixContext";
+// import callGemini from "./api/callGemini"; // Adjust path as needed
 
 function App() {
   return (
@@ -29,3 +30,4 @@ function App() {
 }
 
 export default App;
+

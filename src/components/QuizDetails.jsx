@@ -1,5 +1,15 @@
-const QuizDetails = ({ onClose,quiz }) => {
-console.log(quiz);
+import { useEffect } from "react";
+import callGemini from "../api/callGemini";
+
+const QuizDetails = ({ onClose, quiz }) => {
+    const handleStartQuiz = async () => {
+        if (quiz) {
+            const { title, questions, difficulty } = quiz;
+            await callGemini(title, questions, difficulty);
+            // console.log("Quiz started with data:", questions);
+        }
+    };
+
     return (
         <div className="w-full h-screen absolute top-0 left-0 z-50 bg-[#000000ad] flex items-center justify-center">
             <div className="max-w-3xl w-full mx-auto p-6 bg-white rounded-xl shadow-md border border-gray-200">
@@ -18,8 +28,6 @@ console.log(quiz);
                     </button>
                 </div>
 
-
-
                 {/* Quiz Info */}
                 <div className="grid grid-cols-2 gap-4 mb-6 text-gray-700 text-sm">
                     <div>
@@ -36,25 +44,17 @@ console.log(quiz);
                     </div>
                 </div>
 
-                {/* Question List */}
-                {/* <div className="mb-6">
-                    <h3 className="text-lg font-medium text-gray-800 mb-2">📋 Questions Preview:</h3>
-                    <ul className="list-disc pl-5 text-gray-600 text-sm space-y-1">
-                        {quiz.questions.map((q, idx) => (
-                            <li key={idx}>{q.question}</li>
-                        ))}
-                    </ul>
-                </div> */}
-
                 {/* Start Quiz Button */}
                 <div className="flex justify-end">
-                    <button className="bg-black text-white px-5 py-2 rounded-lg text-sm hover:bg-gray-900 transition">
+                    <button
+                        onClick={handleStartQuiz}
+                        className="bg-black text-white px-5 py-2 rounded-lg text-sm hover:bg-gray-900 transition"
+                    >
                         🚀 Start Quiz
                     </button>
                 </div>
             </div>
         </div>
-
     );
 };
 

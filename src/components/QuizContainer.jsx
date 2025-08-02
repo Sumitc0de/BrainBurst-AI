@@ -1,53 +1,40 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import QuizCard from "./QuizCard";
 import QuizDetails from "./QuizDetails";
 import UserProfile from "./UserProfile";
 import { useAuth } from "../context/AuthContext";
 import { quizAuth } from "../context/QuixContext";
 import { useNavigate } from "react-router-dom";
-// import generateQuiz from "../api/generateQuiz";
-import GeminiPrompt from "../api/GeminiPrompt"; 
+import callGemini from "../api/callGemini"; // ✅ Make sure it's imported
 
 const QuizContainer = () => {
   const { user } = useAuth();
   const { quizzes } = quizAuth();
   const [showQuizDetails, setShowQuizDetails] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
-  const [quiz, setQuiz] = useState('');
+  const [quizData, setQuizData] = useState([]);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    quizzes.map((quiz) => {
-      setQuiz({
-        title: quiz.title,
-        questionNo: quiz.questions,
-        difficulty: quiz.difficulty,
-      });
-    })
+  // // Transform the quiz data from context
+  // useEffect(() => {
+  //   if (quizzes && quizzes.length > 0) {
+  //     const transformed = quizzes.map((q) => ({
+  //       title: q.title,
+  //       questionNo: q.questions,
+  //       difficulty: q.difficulty,
+  //     }));
 
-  }, [quizzes])
+  //     setQuizData(transformed);
+  //   }
+  // }, [quizzes]);
 
-  useEffect(() => {
-    const fetchQuizzes = async () => {
-      const quizData = await GeminiPrompt(quiz.title, quiz.questionNo, quiz.difficulty);
-      if (quizData) {
-        // setQuiz(quizData);
-        console.log(quizData);
-      } else {
-        alert('Failed to generate quiz.');
-      }
-    }
-
-    fetchQuizzes();
-  }, []);
-
-
-
-  // const handleGenerate = async () => {
-  //    
-  //   };
-
-  //   handleGenerate();
+  // // Call Gemini when quizData updates (e.g. use first quiz for example)
+  // useEffect(() => {
+  //   if (quizData.length > 0) {
+  //     const { title, questionNo, difficulty } = quizData[0]; // use first item or selected
+  //     callGemini(title, questionNo, difficulty);
+  //   }
+  // }, [quizData]);
 
   const handleViewQuiz = (quiz) => {
     setSelectedQuiz(quiz);
@@ -91,7 +78,11 @@ const QuizContainer = () => {
       >
         {quizzes &&
           quizzes.map((quiz) => (
-            <QuizCard key={quiz.id} quiz={quiz} onView={() => handleViewQuiz(quiz)} />
+            <QuizCard
+              key={quiz.id}
+              quiz={quiz}
+              onView={() => handleViewQuiz(quiz)}
+            />
           ))}
       </div>
 

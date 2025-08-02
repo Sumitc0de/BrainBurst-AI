@@ -1,6 +1,7 @@
 
-
 const QuizCard = ({quiz ,onView }) => {
+
+ 
 
   return (
     <div  className="bg-white shadow-lg rounded-2xl p-5 border border-gray-200 transition-transform hover:scale-[1.02] duration-200">
