@@ -1,17 +1,17 @@
-import QuizContainer from "../components/QuizContainer";
+import CreateQuizCard from "../components/CreateQuizCard";
 import MenuSection from "../components/MenuSection";
 
 
-const CreatePage = () => {
+const CreateQuiz = () => {
     return (
         <>
             <div className="flex items-center justify-between w-full h-screen">
                 <MenuSection />
-                <QuizContainer />
+               <CreateQuizCard />
 
             </div>
         </>
     );
 }
 
-export default CreatePage;
+export default CreateQuiz;

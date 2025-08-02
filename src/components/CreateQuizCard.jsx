@@ -1,75 +1,83 @@
-const CreateQuizCard = () => {
+import { FaPen, FaHashtag, FaClock, FaSignal } from "react-icons/fa";
+import { quizAuth } from "../context/QuixContext";
+// import { useState } from "react";
 
-    return(
-        <>
-    
-  <div className="bg-white p-8 w-full max-w-full">
- 
-    <form className="space-y-5">
+const CreateQuizCard = () => {
+  const {formData,handleChange,handleCreateQuiz} = quizAuth();
+  
+
+  
+  return (
+    <div className="w-3xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8 space-y-6">
+      <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">
+        🎯 Create Your Quiz
+      </h2>
+
       {/* Quiz Title */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">
-          Quiz Title
-        </label>
+      <div className="flex items-center space-x-3">
+        <FaPen className="text-blue-600 text-lg" />
         <input
           type="text"
-          placeholder="Enter quiz title"
-          className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          name="title"
+          value={formData.title}
+          onChange={(e)=>handleChange(e)}
+          placeholder="Quiz Title"
+          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
       </div>
 
       {/* Number of Questions */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">
-          Number of Questions
-        </label>
+      <div className="flex items-center space-x-3">
+        <FaHashtag className="text-green-600 text-lg" />
         <input
           type="number"
-          placeholder="e.g. 10"
-          className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          name="questions"
+          value={formData.questions}
+          onChange={(e)=>handleChange(e)}
           min="1"
+          placeholder="Number of Questions (e.g., 10)"
+          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-green-500"
         />
       </div>
 
-      {/* Timer (in minutes) */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">
-          Timer (minutes)
-        </label>
+      {/* Timer */}
+      <div className="flex items-center space-x-3">
+        <FaClock className="text-yellow-600 text-lg" />
         <input
           type="number"
-          placeholder="e.g. 15"
-          className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-          min="1"
+          name="timer"
+          value={formData.timer}
+          onChange={(e)=>handleChange(e)}
+          placeholder="Time Limit (in minutes)"
+          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500"
         />
       </div>
 
       {/* Difficulty Level */}
-      <div>
-        <label className="block text-sm font-semibold text-gray-700 mb-1">
-          Difficulty Level
-        </label>
+      <div className="flex items-center space-x-3">
+        <FaSignal className="text-purple-600 text-lg" />
         <select
-          className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-purple-500"
+          name="difficulty"
+          value={formData.difficulty}
+          onChange={(e)=>handleChange(e)}
+
         >
-          <option value="">Select difficulty</option>
-          <option value="easy">Easy</option>
-          <option value="medium">Medium</option>
-          <option value="hard">Hard</option>
+          <option value="">Select Difficulty Level</option>
+          <option value="easy">🟢 Easy</option>
+          <option value="medium">🟡 Medium</option>
+          <option value="hard">🔴 Hard</option>
         </select>
       </div>
 
-      {/* Submit Button */}
-      <button
-        type="submit"
-        className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
-      >
-        Create Quiz
+      {/* Create Quiz Button */}
+      <button 
+      onClick={handleCreateQuiz}
+      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-300">
+        🚀 Create Quiz
       </button>
-    </form>
-  </div>
-        </>
-    );
-}
+    </div>
+  );
+};
 
 export default CreateQuizCard;
