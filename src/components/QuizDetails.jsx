@@ -15,6 +15,7 @@ const QuizDetails = ({ onClose, quiz }) => {
       setLoading(false); // reset if failed
     }
   };
+  console.log("Quiz Details:", quiz);
 
   return (
     <div className="w-full h-screen absolute top-0 left-0 z-50 bg-[#000000ad] flex items-center justify-center">

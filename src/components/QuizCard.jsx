@@ -1,10 +1,10 @@
+import { MdDelete } from "react-icons/md";
+const QuizCard = ({ quiz, onView,onDelete }) => {
 
-const QuizCard = ({quiz ,onView }) => {
 
- 
 
   return (
-    <div  className="bg-white shadow-lg rounded-2xl p-5 border border-gray-200 transition-transform hover:scale-[1.02] duration-200">
+    <div className="bg-white shadow-lg rounded-2xl p-5 border border-gray-200 transition-transform hover:scale-[1.02] duration-200">
       <h2 className="text-xl font-bold text-gray-800 mb-1">
         {quiz.title || "Untitled Quiz"}
       </h2>
@@ -16,12 +16,22 @@ const QuizCard = ({quiz ,onView }) => {
       </p>
       <div className="flex justify-between items-center">
         <span className="text-xs text-green-600 font-medium">✅ Published</span>
-        <button
-          className="text-sm px-3 py-1 cursor-pointer border border-gray-300 rounded-lg hover:bg-gray-100 transition"
-          onClick={()=>{onView(quiz)}}
-        >
-          View
-        </button>
+
+        <div className="flex items-center space-x-2">
+          <button className="border border-gray-300 rounded-sm p-1.5 hover:bg-gray-100 transition"
+          onClick={onDelete}
+          >
+            <MdDelete className="text-red-500 cursor-pointer hover:text-red-700 transition" />
+          </button>
+
+          <button
+            className="text-sm px-3 py-1 cursor-pointer border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+            onClick={onView}
+          >
+            View
+          </button>
+        </div>
+
       </div>
     </div>
   );

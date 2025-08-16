@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 const MenuSection = () => {
-  const [activeItem, setActiveItem] = useState("Create Quiz");
+  const [activeItem, setActiveItem] = useState("create-quiz");
 
   // Rearranged items: first one is separate
   const otherMenuItems = ["Learn", "Explore Quizzes", "My Quizzes", "My Progress"];

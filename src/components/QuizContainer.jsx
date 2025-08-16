@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 const QuizContainer = () => {
   const { user } = useAuth();
-  const { quizzes } = quizAuth();
+  const { quizzes,handleDeleteQuiz } = quizAuth();
   const [showQuizDetails, setShowQuizDetails] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const navigate = useNavigate();
@@ -32,8 +32,9 @@ const QuizContainer = () => {
     }
   };
 
+
   return (
-    <div className="w-full h-[100vh] mt-6 px-4 flex flex-col">
+    <div className="w-full h-[100vh] mt-6 px-4 flex flex-col overflow-y-scroll">
       <div className="w-full pt-5 flex items-center justify-between">
         <h1 className="text-xl font-semibold text-gray-800">
           Welcome back, {user.name}
@@ -62,6 +63,7 @@ const QuizContainer = () => {
               key={quiz.id}
               quiz={quiz}
               onView={() => handleViewQuiz(quiz)}
+              onDelete={() => handleDeleteQuiz(quiz.id)}  
             />
           ))}
       </div>

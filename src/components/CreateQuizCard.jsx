@@ -46,7 +46,7 @@ const CreateQuizCard = () => {
         <input
           type="number"
           name="timer"
-          value={formData.timer}
+          value={formData.timer }
           onChange={(e)=>handleChange(e)}
           placeholder="Time Limit (in minutes)"
           className="w-full p-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-yellow-500"
