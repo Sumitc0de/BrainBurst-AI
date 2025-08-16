@@ -9,7 +9,7 @@ const QuizCard = ({quiz ,onView }) => {
         {quiz.title || "Untitled Quiz"}
       </h2>
       <p className="text-sm text-gray-500 mb-1">
-        📋 {quiz.questions || 0} Questions · ⏱️ {quiz.timer || 0} min
+        📋 {quiz.questions || 0} Questions · ⏱️ {quiz.timer || 1} min
       </p>
       <p className="text-xs text-indigo-500 mb-3">
         Difficulty: {quiz.difficulty || "Not selected"}
@@ -17,7 +17,7 @@ const QuizCard = ({quiz ,onView }) => {
       <div className="flex justify-between items-center">
         <span className="text-xs text-green-600 font-medium">✅ Published</span>
         <button
-          className="text-sm px-3 py-1 border border-gray-300 rounded-lg hover:bg-gray-100 transition"
+          className="text-sm px-3 py-1 cursor-pointer border border-gray-300 rounded-lg hover:bg-gray-100 transition"
           onClick={()=>{onView(quiz)}}
         >
           View

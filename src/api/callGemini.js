@@ -3,8 +3,8 @@ const GEMINI_API_KEY = 'AIzaSyDtqovwy-5qwkxddDfyN3YrMS8kpy19gAY';
 
 const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
-async function callGemini(title, numQuestions, difficulty) {
-   const prompt = `
+async function callGemini(title, numQuestions, difficulty,timer = 1) {
+  const prompt = `
 Generate a quiz on the topic "${title}".
 - Number of questions: ${numQuestions}
 - Difficulty: "${difficulty}"
@@ -17,8 +17,10 @@ Each question should include:
 Return the entire quiz as a single JSON object with the following structure:
 
 {
+  "id": "<unique_quiz_id>",
   "title": "${title}",
   "difficulty": "${difficulty}",
+  "timer": '${timer}', // default timer in minutes
   "questions": [
     {
       "question": "What is ...?",
@@ -29,7 +31,8 @@ Return the entire quiz as a single JSON object with the following structure:
   ]
 }
 
-Only return valid JSON. Do not include explanations or any extra text.`
+- The "id" field must be a unique identifier for this quiz (for example, a UUID or a random alphanumeric string).
+- Only return valid JSON. Do not include explanations or any extra text.`
 ;
   const response = await ai.models.generateContent({
     model: 'gemini-2.0-flash-001',
@@ -39,7 +42,8 @@ Only return valid JSON. Do not include explanations or any extra text.`
   const jsonString = text.trim().match(/\{[\s\S]*\}/)?.[0];  // safely extract JSON from text
 const quizData = jsonString ? JSON.parse(jsonString) : null;
 
-console.log(quizData);
+return quizData;
+// console.log(quizData);
 }
 
 export default callGemini;
