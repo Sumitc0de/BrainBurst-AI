@@ -51,7 +51,7 @@ const Login = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 px-4">
       <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-xl">
-        <h2 className="text-3xl font-extrabold mb-6 text-center text-blue-700">
+        <h2 className="text-2xl md:text-3xl font-extrabold mb-6 text-center text-blue-700">
           Login to BrainBurst AI
         </h2>
 

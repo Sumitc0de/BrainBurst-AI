@@ -18,8 +18,8 @@ const QuizDetails = ({ onClose, quiz }) => {
   console.log("Quiz Details:", quiz);
 
   return (
-    <div className="w-full h-screen absolute top-0 left-0 z-50 bg-[#000000ad] flex items-center justify-center">
-      <div className="max-w-3xl w-full mx-auto p-6 bg-white rounded-xl shadow-md border border-gray-200">
+    <div className="w-full h-screen p-4 md:p-0 absolute top-0 left-0 z-50 bg-[#000000ad] flex items-center justify-center">
+      <div className="max-w-3xl w-full h-1/2 md:h-fit  mx-auto p-6 bg-white rounded-xl shadow-md border border-gray-200">
         {/* Title */}
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold text-gray-800 flex items-center gap-2">
@@ -55,7 +55,7 @@ const QuizDetails = ({ onClose, quiz }) => {
         {/* Start Quiz / Loader */}
         {loading ? (
           <div className="flex justify-center">
-            <img src={loader} alt="Loading..." className="w-40 h-40 " />
+            <img src={loader} alt="Loading..." className="w-40 md:w-60  " />
           </div>
         ) : (
           <div className="flex justify-end">

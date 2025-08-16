@@ -48,7 +48,11 @@ const Signup = () => {
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 to-blue-700 px-4">
             <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-xl">
-                <h2 className="text-3xl font-extrabold mb-6 text-center text-blue-700">
+                <h2 className="md:hidden text-2xl font-extrabold mb-6 text-center text-blue-700">
+                    Create Account 
+                </h2>
+                
+                <h2 className="hidden md:block text-3xl font-extrabold mb-6 text-center text-blue-700">
                     Create Your Account on BrainBurst AI
                 </h2>
 

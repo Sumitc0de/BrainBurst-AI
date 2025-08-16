@@ -6,7 +6,6 @@ const CreateQuiz = () => {
     return (
         <>
             <div className="flex items-center justify-between w-full h-screen">
-                <MenuSection />
                <CreateQuizCard />
 
             </div>

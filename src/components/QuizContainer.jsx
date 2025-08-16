@@ -6,19 +6,16 @@ import { useAuth } from "../context/AuthContext";
 import { quizAuth } from "../context/QuixContext";
 import { useNavigate } from "react-router-dom";
 
-
 const QuizContainer = () => {
   const { user } = useAuth();
-  const { quizzes,handleDeleteQuiz } = quizAuth();
+  const { quizzes, handleDeleteQuiz } = quizAuth();
   const [showQuizDetails, setShowQuizDetails] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const navigate = useNavigate();
 
-
   const handleViewQuiz = (quiz) => {
     setSelectedQuiz(quiz);
     setShowQuizDetails(true);
-    console.log("Selected Quiz:", quiz);
   };
 
   const handleClose = () => {
@@ -32,12 +29,11 @@ const QuizContainer = () => {
     }
   };
 
-
   return (
-    <div className="w-full h-[100vh]  px-4 py-4 flex flex-col overflow-y-scroll">
+    <div className="flex-1 h-screen px-4 py-4 flex flex-col overflow-y-scroll ">
       <div className="w-full pt-5 flex items-center justify-between">
-        <h1 className="text-2xl font-semibold text-gray-800">
-          Welcome back,<span className="font-bold">{user.name}</span> 
+        <h1 className="mt-8 md:mt-0 text-2xl font-semibold text-gray-800">
+          Welcome back, <span className="font-bold">{user?.name || "Guest"}</span>
         </h1>
         <div id="User_account">
           <UserProfile />
@@ -55,22 +51,32 @@ const QuizContainer = () => {
 
       <div
         id="Quiz_Container"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+        className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4"
       >
-        {quizzes &&
+        {quizzes && quizzes.length > 0 ? (
           quizzes.map((quiz) => (
             <QuizCard
               key={quiz.id}
               quiz={quiz}
               onView={() => handleViewQuiz(quiz)}
-              onDelete={() => handleDeleteQuiz(quiz.id)}  
+              onDelete={() => handleDeleteQuiz(quiz.id)}
             />
-          ))}
+          ))
+        ) : (
+          <p className="text-gray-500 col-span-full text-center">
+            No quizzes available. Create your first one!
+          </p>
+        )}
       </div>
 
       {showQuizDetails && selectedQuiz && (
-        <QuizDetails key={selectedQuiz.id} onClose={handleClose} quiz={selectedQuiz} />
+        <QuizDetails onClose={handleClose} quiz={selectedQuiz} />
       )}
+
+      {/* Footer (mobile only) */}
+      <div className="md:hidden mt-auto pt-10 text-center text-sm text-gray-400">
+        © 2025 BrainBurst AI. All rights reserved.
+      </div>
     </div>
   );
 };

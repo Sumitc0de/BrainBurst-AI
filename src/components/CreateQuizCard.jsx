@@ -9,7 +9,7 @@ const CreateQuizCard = () => {
   
   return (
     <div className="w-3xl mx-auto mt-10 bg-white shadow-xl rounded-2xl p-8 space-y-6">
-      <h2 className="text-3xl font-bold text-gray-800 mb-4 text-center">
+      <h2 className=" text-3xl font-bold text-gray-800 md:mb-4 text-center">
         🎯 Create Your Quiz
       </h2>
 
@@ -73,7 +73,7 @@ const CreateQuizCard = () => {
       {/* Create Quiz Button */}
       <button 
       onClick={handleCreateQuiz}
-      className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-300">
+      className="w-full bg-blue-600 cursor-pointer hover:bg-blue-700 text-white font-semibold py-3 rounded-xl transition duration-300">
         🚀 Create Quiz
       </button>
     </div>
