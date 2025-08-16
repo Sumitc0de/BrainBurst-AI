@@ -34,10 +34,10 @@ const QuizContainer = () => {
 
 
   return (
-    <div className="w-full h-[100vh] mt-6 px-4 flex flex-col overflow-y-scroll">
+    <div className="w-full h-[100vh]  px-4 py-4 flex flex-col overflow-y-scroll">
       <div className="w-full pt-5 flex items-center justify-between">
-        <h1 className="text-xl font-semibold text-gray-800">
-          Welcome back, {user.name}
+        <h1 className="text-2xl font-semibold text-gray-800">
+          Welcome back,<span className="font-bold">{user.name}</span> 
         </h1>
         <div id="User_account">
           <UserProfile />

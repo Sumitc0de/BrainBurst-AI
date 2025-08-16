@@ -1,16 +1,16 @@
-import { useState } from "react";
 import MenuSection from "../components/MenuSection";
 import QuizContainer from "../components/QuizContainer";
 
-const Home = () => {  
+function Home() {
   return (
-    <>
-      <div className="flex items-center justify-between w-full h-screen overflow-y-hidden">
-          <MenuSection/>
-          <QuizContainer />
-      </div>
-    </>
+    <div className="flex h-screen overflow-hidden">
+      {/* Sidebar / Menu */}
+      <MenuSection />
+
+      {/* Main Content */}
+        <QuizContainer />
+    </div>
   );
-};
+}
 
 export default Home;
