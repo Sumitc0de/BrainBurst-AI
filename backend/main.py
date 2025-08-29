@@ -5,16 +5,21 @@ import os, json
 
 app = FastAPI()
 
-# ✅ Allow CORS (frontend <-> backend communication)
+# ✅ Allow CORS (for frontend on localhost + Vercel)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173", "http://localhost:3000"],  # your frontend dev URLs
+    allow_origins=[
+        "http://localhost:5173", 
+        "http://localhost:3000", 
+        "https://your-frontend.vercel.app"  # replace with your Vercel URL after deploy
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-STORAGE_DIR = "storage"
+# ✅ Persistent storage directory for Render
+STORAGE_DIR = "/opt/render/project/src/storage"
 
 # Data model for structured AI content
 class AIContent(BaseModel):
