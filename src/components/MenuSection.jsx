@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { IoMdMenu, IoMdClose } from "react-icons/io";
+import UserProfile from "./UserProfile";
 
 const menuItems = [
   { name: "Learn", path: "/learn" },
@@ -18,89 +19,94 @@ const linkClasses = ({ isActive }) =>
 const MenuSection = () => {
   const [open, setOpen] = useState(false);
 
-  return (
-    <div>
-      {/* Hamburger menu for mobile */}
-      {!open && (
-        <button
-          className="md:hidden fixed top-3 left-3 z-50 bg-white/80 rounded-full p-2 shadow"
-          onClick={() => setOpen(true)}
-          aria-label="Open menu"
-        >
-          <IoMdMenu className="w-8 h-8" />
-        </button>
-      )}
-
-      {/* Backdrop for mobile */}
-      {open && (
-        <div
-          className="fixed inset-0 bg-black/40 z-40 md:hidden"
-          onClick={() => setOpen(false)}
-        />
-      )}
-
-      {/* Sidebar */}
-      <div
-        className={`fixed md:static top-0 left-0 h-full 
-          w-[80vw] md:w-64 bg-white border-r border-gray-200 shadow-xl
-          transition-transform duration-300 z-50
-          ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+ return (
+  <div>
+    {/* Hamburger menu for mobile */}
+    {!open && (
+      <button
+        className="md:hidden fixed top-4 left-4 z-50 bg-white/90 rounded-full p-2 shadow-md hover:shadow-lg transition"
+        onClick={() => setOpen(true)}
+        aria-label="Open menu"
       >
-        <div className="p-6 flex flex-col h-full">
-          {/* Close Icon (mobile only) */}
-          <button
-            className="md:hidden self-start mb-4"
-            onClick={() => setOpen(false)}
-            aria-label="Close menu"
-          >
-            <IoMdClose className="w-8 h-8" />
-          </button>
+        <IoMdMenu className="w-8 h-8 text-gray-800" />
+      </button>
+    )}
 
-          {/* Logo */}
-          <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 mb-10 tracking-wide">
-            Brain<span className="text-[#0065F8]">Burst</span> AI
-          </h1>
+    {/* Backdrop for mobile */}
+    {open && (
+      <div
+        className="fixed inset-0 bg-black/40 z-40 md:hidden"
+        onClick={() => setOpen(false)}
+      />
+    )}
 
-          {/* Create Quiz */}
-          <NavLink
-            to="/"
-            end
-            className={linkClasses}
-            onClick={() => setOpen(false)}
-          >
-            <span>Create Quiz</span>
-          </NavLink>
+    {/* Sidebar */}
+    <div
+      className={`fixed md:static top-0 left-0 h-full 
+        w-[80vw] md:w-64 bg-white border-r border-gray-200 shadow-xl
+        transition-transform duration-300 z-50
+        ${open ? "translate-x-0" : "-translate-x-full md:translate-x-0"}`}
+    >
+      <div className="p-6 flex flex-col h-full">
+        {/* Close Icon (mobile only) */}
+        <button
+          className="md:hidden self-start mb-6"
+          onClick={() => setOpen(false)}
+          aria-label="Close menu"
+        >
+          <IoMdClose className="w-8 h-8 text-gray-800" />
+        </button>
 
-          <br className="md:hidden" />
+        {/* Logo */}
+        <h1 className="text-3xl md:text-3xl font-extrabold text-gray-900 mb-12 tracking-wide">
+          Brain<span className="text-indigo-600">Burst</span> AI
+        </h1>
 
-          <p className="hidden md:block text-sm text-gray-500 my-6 px-1">
-            Start creating your custom quizzes with ease.
-          </p>
+        {/* Create Quiz Link */}
+        <NavLink
+          to="/"
+          end
+          className={linkClasses}
+          onClick={() => setOpen(false)}
+        >
+          <span>Create Quiz</span>
+        </NavLink>
 
-          {/* Dynamic menu items */}
-          <ul className="space-y-4">
-            {menuItems.map(({ name, path }) => (
-              <li key={path}>
-                <NavLink
-                  to={path}
-                  className={linkClasses}
-                  onClick={() => setOpen(false)}
-                >
-                  {name}
-                </NavLink>
-              </li>
-            ))}
-          </ul>
+        {/* Optional description */}
+        <p className="hidden md:block text-sm text-gray-500 my-6 px-1">
+          Start creating your custom quizzes with ease.
+        </p>
+        <br />
 
-          {/* Footer */}
-          <div className="mt-auto pt-10 text-sm text-gray-400">
-           © 2025 BrainBurst AI. All rights reserved.
-            & developed by Sumit Vishwakarma
-          </div>
+        {/* Dynamic menu items */}
+        <ul className="space-y-4">
+          {menuItems.map(({ name, path }) => (
+            <li key={path}>
+              <NavLink
+                to={path}
+                className={linkClasses}
+                onClick={() => setOpen(false)}
+              >
+                {name}
+              </NavLink>
+            </li>
+          ))}
+        </ul>
+
+        {/* User Profile */}
+        <div className="mt-6 md:mt-auto">
+          <UserProfile />
+        </div>
+
+        {/* Footer */}
+        <div className="mt-auto pt-8 text-xs md:text-sm text-gray-400 ">
+          © 2025 BrainBurst AI. All rights reserved.<br />Developed by Sumit Vishwakarma
         </div>
       </div>
     </div>
-  );
+  </div>
+);
+
 };
 
 export default MenuSection;

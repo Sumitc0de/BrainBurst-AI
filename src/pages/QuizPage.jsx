@@ -93,101 +93,97 @@ const handleSubmit = () => {
     return `${m}:${s.toString().padStart(2, "0")}`;
   };
 
-  return (
-    <div className="flex flex-col items-center p-6 min-h-screen bg-blue-50">
-      {/* Top Bar */}
-      <div className="flex justify-between items-center w-full max-w-3xl bg-white shadow-md p-4 rounded-lg mb-6">
-        <h1 className="text-2xl font-bold text-blue-600">
-          {quizData.data.title || "Quiz"}
-        </h1>
-        <div className="text-lg font-semibold">
-          Time Left:{" "}
-          <span className="text-red-500">{formatTime(timer.timeLeft)}</span>
+return (
+  <div className="min-h-screen bg-blue-50 flex flex-col items-center px-4 py-8">
+    {/* Top Bar */}
+    <div className="flex justify-between items-center w-full max-w-3xl bg-white shadow-md p-4 rounded-2xl mb-6">
+      <h1 className="text-2xl md:text-3xl font-bold text-blue-600">
+        {quizData.data.title || "Quiz"}
+      </h1>
+      <div className="text-lg md:text-xl font-semibold">
+        Time Left: <span className="text-red-500">{formatTime(timer.timeLeft)}</span>
+      </div>
+    </div>
+
+    {/* Score Card */}
+    {score !== null ? (
+      <div className="w-full max-w-3xl bg-white shadow-lg p-6 rounded-2xl text-center space-y-4">
+        <h2 className="text-2xl md:text-3xl font-bold text-blue-700">
+          🎉 Quiz Completed!
+        </h2>
+        <p className="text-lg md:text-xl text-gray-700">
+          You scored <span className="text-blue-600">{score}</span> out of {questions.length}
+        </p>
+
+        {score < questions.length && (
+          <p className={`text-md md:text-lg font-semibold ${score < questions.length / 2 ? "text-red-500" : "text-yellow-600"}`}>
+            {score < questions.length / 2
+              ? "You can do better! Keep practicing."
+              : "Good job! But there's room for improvement."}
+          </p>
+        )}
+
+        <button
+          onClick={handleBackToHome}
+          className="mt-4 bg-blue-600 text-white px-6 py-3 rounded-xl font-semibold hover:bg-blue-700 transition-shadow shadow-md"
+        >
+          Back to Home
+        </button>
+      </div>
+    ) : (
+      /* Question Card */
+      <div className="w-full max-w-3xl bg-white shadow-lg p-6 rounded-2xl mb-6 space-y-4">
+        <h2 className="text-xl md:text-2xl font-semibold text-blue-700">
+          Q{currentQ + 1}. {question.question}
+        </h2>
+
+        {/* Options */}
+        <div className="flex flex-col gap-3">
+          {question.options.map((option, idx) => (
+            <button
+              key={idx}
+              onClick={() => handleOptionClick(option)}
+              className={`p-3 rounded-xl border transition duration-200
+                ${selectedOption === option ? "bg-blue-500 text-white" : "bg-blue-50 hover:bg-blue-100"}
+              `}
+            >
+              {option}
+            </button>
+          ))}
+        </div>
+
+        {/* Navigation Buttons */}
+        <div className="flex justify-between mt-6">
+          <button
+            onClick={handleBack}
+            disabled={currentQ === 0}
+            className="bg-blue-500 text-white font-semibold px-5 py-2 rounded-xl hover:bg-blue-600 disabled:opacity-50 transition"
+          >
+            Back
+          </button>
+
+          {currentQ < questions.length - 1 ? (
+            <button
+              onClick={handleNext}
+              className="bg-blue-500 text-white font-semibold px-5 py-2 rounded-xl hover:bg-blue-600 transition"
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              onClick={handleSubmit}
+              className="bg-green-500 text-white font-semibold px-5 py-2 rounded-xl hover:bg-green-600 transition"
+            >
+              Submit
+            </button>
+          )}
         </div>
       </div>
+    )}
+  </div>
+);
 
-      {/* Score Card */}
-      {score !== null ? (
-        <div className="w-full max-w-3xl bg-white shadow-lg p-6 rounded-xl text-center">
-          <h2 className="text-2xl font-bold text-blue-700 mb-4">
-            🎉 Quiz Completed!
-          </h2>
-          <p className="text-lg text-gray-700">
-            You scored <span className="text-blue-600">{score}</span> out of{" "}
-            {questions.length}
-          </p>
 
-          {score < questions.length && (
-            <p className="mt-2 text-red-500 font-semibold">
-              {score < questions.length / 2
-                ? "You can do better! Keep practicing."
-                : "Good job! But there's room for improvement."}
-            </p>
-          )}
-
-          <button
-            onClick={handleBackToHome}
-            className="mt-4 bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-          >
-            Back to Home
-          </button>
-        </div>
-      ) : (
-        /* Question Card */
-        <div className="w-full max-w-3xl bg-white shadow-lg p-6 rounded-xl mb-6">
-          <h2 className="text-xl font-semibold mb-4 text-blue-700">
-            Q{currentQ + 1}. {question.question}
-          </h2>
-
-          {/* Options */}
-          <div className="flex flex-col gap-3">
-            {question.options.map((option, idx) => (
-              <button
-                key={idx}
-                onClick={() => handleOptionClick(option)}
-                className={`p-3 rounded-lg border transition 
-                  ${
-                    selectedOption === option
-                      ? "bg-blue-500 text-white"
-                      : "bg-blue-50 hover:bg-blue-100"
-                  }
-                `}
-              >
-                {option}
-              </button>
-            ))}
-          </div>
-
-          {/* Navigation Buttons */}
-          <div className="flex justify-between mt-6">
-            <button
-              onClick={handleBack}
-              disabled={currentQ === 0}
-              className="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600 disabled:opacity-50 transition"
-            >
-              Back
-            </button>
-
-            {currentQ < questions.length - 1 ? (
-              <button
-                onClick={handleNext}
-                className="bg-blue-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-blue-600 transition"
-              >
-                Next
-              </button>
-            ) : (
-              <button
-                onClick={handleSubmit}
-                className="bg-green-500 text-white font-semibold px-4 py-2 rounded-lg hover:bg-green-600 transition"
-              >
-                Submit
-              </button>
-            )}
-          </div>
-        </div>
-      )}
-    </div>
-  );
 }
 
 

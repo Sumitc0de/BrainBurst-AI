@@ -40,6 +40,8 @@ const QuizProvider = ({ children }) => {
     if (!user) {
       navigate("/login");
       return;
+    }else{
+      navigate("/");
     }
 
     const quizId = `quiz_${Date.now()}`;

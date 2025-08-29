@@ -1,31 +1,19 @@
 import { useState, useEffect } from "react";
 import QuizCard from "../components/QuizCard.jsx";
-import createQuiz from "../api/createQuiz.js";
 import QuizDetails from "../components/QuizDetails.jsx";
+import { prepareQuizzes } from "../utils/generateQuiz.js";
 
 const topics = {
   frontend: ["HTML", "CSS"],
   backend: ["Node.js"],
   programming: ["C"],
-  sports: ["Football"],
 };
 
 const ExplorePage = () => {
-  const [quizzesByCategory, setQuizzesByCategory] = useState({
-    frontend: [],
-    backend: [],
-    programming: [],
-  });
+  const [quizzesByCategory, setQuizzesByCategory] = useState({});
   const [loading, setLoading] = useState(true);
   const [showQuizDetails, setShowQuizDetails] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
-
-  // Track collapsible categories
-  const [openCategories, setOpenCategories] = useState({
-    frontend: true,
-    backend: true,
-    programming: true,
-  });
 
   const handleViewQuiz = (quiz) => {
     setSelectedQuiz(quiz);
@@ -37,46 +25,22 @@ const ExplorePage = () => {
     setSelectedQuiz(null);
   };
 
-  const toggleCategory = (category) => {
-    setOpenCategories((prev) => ({
-      ...prev,
-      [category]: !prev[category],
-    }));
-  };
-
   useEffect(() => {
     const fetchQuizzes = async () => {
       setLoading(true);
-
       try {
-        const categoryResults = {};
+        const quizzes = await prepareQuizzes(topics);
 
-        for (const category in topics) {
-          const quizzesForCategory = [];
+        // ✅ Group quizzes by category
+        const grouped = quizzes.reduce((acc, quiz) => {
+          if (!acc[quiz.category]) acc[quiz.category] = [];
+          acc[quiz.category].push(quiz);
+          return acc;
+        }, {});
 
-          for (const title of topics[category]) {
-            const topicSlug = title.toLowerCase().replace(/\s+/g, "-");
-
-            // Check if quiz exists in localStorage
-            const storedQuiz = localStorage.getItem(`quiz_${topicSlug}`);
-            let quiz;
-
-            if (storedQuiz) {
-              quiz = JSON.parse(storedQuiz); // load from localStorage
-            } else {
-              quiz = await createQuiz(title); // generate via API
-              localStorage.setItem(`quiz_${topicSlug}`, JSON.stringify(quiz)); // store in localStorage
-            }
-
-            quizzesForCategory.push(quiz);
-          }
-
-          categoryResults[category] = quizzesForCategory;
-        }
-
-        setQuizzesByCategory(categoryResults);
+        setQuizzesByCategory(grouped);
       } catch (error) {
-        console.error("Error fetching quizzes:", error);
+        console.error("Error loading quizzes:", error);
       } finally {
         setLoading(false);
       }
@@ -86,56 +50,34 @@ const ExplorePage = () => {
   }, []);
 
   return (
-    <div className="w-full min-h-screen px-4 py-4 flex flex-col">
-      <h1 className="text-2xl font-semibold text-gray-800 mb-6">
-        Explore & Challenge Your Mind – Quiz Time!
+    <div className="w-full min-h-screen px-6 py-10 bg-gradient-to-b from-indigo-50 to-white">
+      <h1 className="mt-10 md:mt-0 text-2xl md:text-4xl font-extrabold text-indigo-700 mb-12">
+        🚀 Explore & Challenge Your Mind – Quiz Time!
       </h1>
 
       {loading ? (
-        <p className="text-gray-500 text-center">Loading quizzes...</p>
+        <div className="flex justify-center items-center py-20">
+          <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
+        </div>
       ) : (
         Object.entries(quizzesByCategory).map(([category, quizzes]) => (
-          <div key={category} className="mb-8">
-            {/* Category Header */}
-            <button
-              onClick={() => toggleCategory(category)}
-              className="w-full flex justify-between items-center text-left 
-                 bg-gray-200 px-4 py-2 rounded-lg shadow-sm hover:bg-gray-200 transition"
-            >
-              <span className="text-lg font-bold text-gray-700  capitalize">
-                {category} Quizzes
-              </span>
-              <span className="text-gray-600">
-                {openCategories[category] ? "−" : "+"}
-              </span>
-            </button>
+          <div key={category} className="mb-10">
+            {/* Category Heading */}
+            <h2 className="text-2xl font-semibold text-gray-800 mb-6 capitalize relative inline-block">
+              {category} Quizzes
+              <span className="absolute left-0 -bottom-1 w-full h-1 bg-indigo-400 rounded-md"></span>
+            </h2>
 
-            {/* Category Quizzes */}
-            {openCategories[category] && (
-              <div className="mt-4 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-                {quizzes.length > 0 ? (
-                  quizzes.map((quiz, index) => (
-                    <QuizCard
-                      key={quiz.id || `${category}-${index}`}
-                      quiz={quiz}
-                      onView={() => handleViewQuiz(quiz)}
-                      onDelete={() => {
-                        setQuizzesByCategory((prev) => ({
-                          ...prev,
-                          [category]: prev[category].filter(
-                            (q) => q.id !== quiz.id
-                          ),
-                        }));
-                      }}
-                    />
-                  ))
-                ) : (
-                  <p className="text-gray-500 col-span-full text-center">
-                    No {category} quizzes available.
-                  </p>
-                )}
-              </div>
-            )}
+            {/* Quiz Grid */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {quizzes.map((quiz) => (
+                <QuizCard
+                  key={quiz.id}
+                  quiz={quiz}
+                  onView={() => handleViewQuiz(quiz)}
+                />
+              ))}
+            </div>
           </div>
         ))
       )}
@@ -143,6 +85,11 @@ const ExplorePage = () => {
       {showQuizDetails && selectedQuiz && (
         <QuizDetails onClose={handleClose} quiz={selectedQuiz} />
       )}
+
+        {/* Footer */}
+    <div className="w-full md:hidden text-center text-sm text-gray-400 md:mt-12">
+      © 2025 BrainBurst AI. All rights reserved. Developed by Sumit Vishwakarma
+    </div>
     </div>
   );
 };

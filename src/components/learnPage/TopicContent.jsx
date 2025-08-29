@@ -3,12 +3,12 @@ import { useLocation, useParams } from "react-router-dom";
 import learnTopic from "../../api/learnTopic"; 
 import ReactMarkdown from "react-markdown";
 
+
 const TopicContent = () => {
   const { topic } = useParams();
   const location = useLocation();
   const [topicData, setTopicData] = useState(null);
   const [loading, setLoading] = useState(true);
-
   // Convert "html-structure" → "HTML Structure"
   const topicName = topic
     .split("-")
@@ -19,25 +19,19 @@ const TopicContent = () => {
   const title = location.pathname.split('/')[2]; 
   // console.log("Topic Name:", topicName);
 
-  useEffect(() => {
-    const fetchTopicContent = async () => {
-      setLoading(true);
+useEffect(() => {
+    const getTopic = async () => {
       try {
-        // ✅ 1. Try reading from backend first
-        const backendUrl = import.meta.env.VITE_API_URL; 
-        const res = await fetch(`${backendUrl}/read/${topicName}`);   // Load from the backend 
-        if (res.ok) {
-          const data = await res.json();
-          // console.log("✅ Loaded from backend:", data);
-          setTopicData(data);
-        } else if (res.status === 404) {                                       // Data not found , create it and save it
-          // ✅ 2. If not found, call AI (learnTopic)
-          console.log("⚠️ Not found in backend. Calling AI...");
-          const data = await learnTopic(topicName,title);
-          setTopicData(data);
-        } else {
-          throw new Error(`HTTP error! status: ${res.status}`);
+        setLoading(true);
+
+        // ✅ Fetch from JSONBin or generate via AI if not found
+        const data = await learnTopic(topicName, title);
+
+        if (!data) {
+          console.warn("⚠️ No data returned for topic:", topicName);
         }
+
+        setTopicData(data);
       } catch (err) {
         console.error("❌ Error fetching topic:", err);
       } finally {
@@ -45,9 +39,8 @@ const TopicContent = () => {
       }
     };
 
-    fetchTopicContent();
-  }, [topicName]);  // changes when topicName is change
-
+    getTopic();
+  }, [topicName, title]);
 
 if (loading)
   return (

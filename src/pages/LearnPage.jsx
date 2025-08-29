@@ -57,61 +57,62 @@ const LearnPage = () => {
 
   return (
     <>
-        <div className="mt-12 sm:mt-0 md:w-[80vw] h-fit px-4 py-4 flex flex-col">
-          <h1 className="text-2xl md:text-3xl font-extrabold text-gray-900 tracking-wide">
-            Start Your Learning Journey 🚀
-          </h1>
-          <p className="mt-3 text-lg text-gray-600">
-            Explore topics, learn step by step, and practice with quizzes at the same place.
-          </p>
+      <>
+  <div className="w-full min-h-screen px-6 py-10 bg-gradient-to-b from-indigo-50 to-white flex flex-col">
+    {/* Page Title */}
+    <h1 className="mt-10 md:mt-0 text-3xl md:text-4xl font-extrabold text-indigo-700 mb-4">
+      Start Your Learning Journey 🚀
+    </h1>
+    <p className=" md:text-xl text-gray-600 mb-12 max-w-3xl">
+      Explore topics, learn step by step, and practice with quizzes all in one place.
+    </p>
 
-          <br />
-          <br />
-
-          {/* Basic Web Development */}
-          <h2 className="pl-1 text-xl md:text-2xl font-bold text-gray-
-800 mb-4">Basic Web Development</h2>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4">
-            {/* Render Basic Web Development Topics */}
-            {webDevTopics.basic.map((topic, index) => (
-              <Card key={index} topic={topic}   onView={() => { handleView(topic) }} />
-              
-            ))}
-          </div>
-
-          <h2 className="pl-1 text-xl md:text-2xl mt-6 font-bold text-gray-
-800 mb-4">Advanced HTML & CSS</h2>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4">
-            {/* Render Advanced HTML & CSS Topics */}
-            {webDevTopics.advanced_html_css.map((topic, index) => (
-              <Card key={index} topic={topic} onView={() => { handleView(topic) }} />
-            ))}
-          </div>
-
-          <h2 className="pl-1 text-xl md:text-2xl mt-6 font-bold text-gray-
-800 mb-4">JavaScript</h2>
-          <div
-            className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4">
-            {/* Render JavaScript Topics */}
-            {webDevTopics.javascript.map((topic, index) => (
-              <Card key={index} topic={topic}  onView={() => { handleView(topic) }} />
-            ))}
-
-            
-          </div>
-
-         {/* Footer (mobile only) */}
-      <div className="md:hidden pt-2 w-full text-center text-sm text-gray-400">
-         © 2025 BrainBurst AI. All rights reserved.
-            & developed by Sumit Vishwakarma
+    {/* Basic Web Development Section */}
+    <section className="mb-12">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 relative inline-block">
+        Basic Web Development
+        <span className="absolute left-0 -bottom-1 w-20 h-1 bg-indigo-400 rounded-full"></span>
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {webDevTopics.basic.map((topic, index) => (
+          <Card key={index} topic={topic} onView={() => handleView(topic)} />
+        ))}
       </div>
+    </section>
 
-        </div>
-       
+    {/* Advanced HTML & CSS Section */}
+    <section className="mb-12">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 relative inline-block">
+        Advanced HTML & CSS
+        <span className="absolute left-0 -bottom-1 w-20 h-1 bg-indigo-400 rounded-full"></span>
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {webDevTopics.advanced_html_css.map((topic, index) => (
+          <Card key={index} topic={topic} onView={() => handleView(topic)} />
+        ))}
+      </div>
+    </section>
 
-        
+    {/* JavaScript Section */}
+    <section className="mb-12">
+      <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-6 relative inline-block">
+        JavaScript
+        <span className="absolute left-0 -bottom-1 w-20 h-1 bg-indigo-400 rounded-full"></span>
+      </h2>
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {webDevTopics.javascript.map((topic, index) => (
+          <Card key={index} topic={topic} onView={() => handleView(topic)} />
+        ))}
+      </div>
+    </section>
+
+    {/* Footer */}
+    <div className="pt-6 w-full md:hidden text-center text-sm text-gray-400 md:mt-12">
+      © 2025 BrainBurst AI. All rights reserved. Developed by Sumit Vishwakarma
+    </div>
+  </div>
+</>
+
     </>
   );
 }

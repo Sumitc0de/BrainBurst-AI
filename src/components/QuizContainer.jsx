@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import QuizCard from "./QuizCard";
 import QuizDetails from "./QuizDetails";
-import UserProfile from "./UserProfile";
 import { useAuth } from "../context/AuthContext";
 import { quizAuth } from "../context/QuixContext";
 import { useNavigate } from "react-router-dom";
 
 const QuizContainer = () => {
   const { user } = useAuth();
-  const { quizzes, handleDeleteQuiz } = quizAuth();
+  const { quizzes, handleDeleteQuiz, fetchQuizzes } = quizAuth(); // assuming fetchQuizzes exists
   const [showQuizDetails, setShowQuizDetails] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
+  const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
   const handleViewQuiz = (quiz) => {
@@ -24,59 +24,75 @@ const QuizContainer = () => {
   };
 
   const handleCreateQuiz = () => {
-    if (user) {
-      navigate("/create-quiz");
-    }
+    if (user) navigate("/create-quiz");
   };
 
+  // Fetch quizzes and show loading
+  useEffect(() => {
+    const loadQuizzes = async () => {
+      setLoading(true);
+      try {
+        if (fetchQuizzes) await fetchQuizzes(); // fetch quizzes if context provides this
+      } catch (err) {
+        console.error("Failed to fetch quizzes:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadQuizzes();
+  }, [fetchQuizzes]);
+
   return (
-    <div className="mt-10 sm:mt-0 h-fit px-4 flex flex-col  ">
-      <div className="w-full flex items-center justify-between">
-        <h1 className="mt-8 md:mt-0 text-2xl font-semibold text-gray-800">
-          Welcome back, <span className="font-bold">{user?.name || "Guest"}</span>
+    <div className="w-full min-h-screen px-6 py-10 bg-gradient-to-b from-indigo-50 to-white flex flex-col">
+      {/* Header */}
+      <div className="mt-10 md:mt-0 w-full mb-10">
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4 md:mb-0">
+          Welcome back, <span className="text-indigo-600">{user?.name || "Guest"}</span> 👋
         </h1>
-        <div id="User_account">
-          <UserProfile />
-        </div>
       </div>
 
-      <div className="mt-10 mb-5">
+      {/* Create Quiz Button */}
+      <div className="mb-8">
         <button
           onClick={handleCreateQuiz}
-          className="bg-black text-white px-5 py-2 rounded-lg text-sm font-medium hover:bg-gray-900 transition"
+          className="bg-indigo-600 text-white px-6 py-3 rounded-xl text-base font-semibold hover:bg-indigo-700 transition-shadow shadow-md"
         >
           + Create Quiz
         </button>
       </div>
 
-      <div
-        id="Quiz_Container"
-        className="grid grid-cols-1 sm:grid-cols-2  lg:grid-cols-4 gap-4"
-      >
-        {quizzes && quizzes.length > 0 ? (
-          quizzes.map((quiz) => (
-            <QuizCard
-              key={quiz.id}
-              quiz={quiz}
-              onView={() => handleViewQuiz(quiz)}
-              onDelete={() => handleDeleteQuiz(quiz.id)}
-            />
-          ))
-        ) : (
-          <p className="text-gray-500 col-span-full text-center">
-            No quizzes available. Create your first one!
-          </p>
-        )}
-      </div>
+      {/* Quiz Grid */}
+      {loading ? (
+        <div className="col-span-full flex justify-center items-center mt-10">
+          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600 border-b-4"></div>
+        </div>
+      ) : (
+        <div id="Quiz_Container" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {quizzes && quizzes.length > 0 ? (
+            quizzes.map((quiz) => (
+              <QuizCard
+                key={quiz.id}
+                quiz={quiz}
+                onView={() => handleViewQuiz(quiz)}
+                onDelete={() => handleDeleteQuiz(quiz.id)}
+              />
+            ))
+          ) : (
+            <p className="text-gray-500 col-span-full text-center text-lg mt-10">
+              No quizzes available. Create your first one!
+            </p>
+          )}
+        </div>
+      )}
 
+      {/* Quiz Details Modal */}
       {showQuizDetails && selectedQuiz && (
         <QuizDetails onClose={handleClose} quiz={selectedQuiz} />
       )}
 
-              {/* Footer (mobile only) */}
-      <div className="md:hidden py-4 w-full text-center text-sm text-gray-400">
-         © 2025 BrainBurst AI. All rights reserved.
-            & developed by Sumit Vishwakarma
+      {/* Footer */}
+      <div className="pt-6 md:mt-12 md:hidden w-full text-center text-sm text-gray-400">
+        © 2025 BrainBurst AI. All rights reserved. Developed by Sumit Vishwakarma
       </div>
     </div>
   );

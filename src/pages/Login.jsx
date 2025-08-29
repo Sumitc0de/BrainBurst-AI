@@ -48,59 +48,79 @@ const Login = () => {
     }
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-500 via-blue-600 to-blue-700 px-4">
-      <div className="bg-white w-full max-w-md p-8 rounded-2xl shadow-xl">
-        <h2 className="text-2xl md:text-3xl font-extrabold mb-6 text-center text-blue-700">
-          Login to BrainBurst AI
-        </h2>
+return (
+  <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-indigo-500 via-blue-600 to-blue-700 px-4">
+    <div className="bg-white w-full max-w-md p-10 rounded-3xl shadow-2xl flex flex-col items-center">
+      
+      {/* Branding / Logo */}
+      <h1 className="text-3xl md:text-3xl font-extrabold text-gray-900 mb-4 tracking-wide">
+          Brain<span className="text-indigo-600">Burst</span> AI
+        </h1>
+      <h2 className="text-2xl font-semibold text-gray-800 mb-8 text-center">
+        Login to your account
+      </h2>
 
-        <form className="space-y-5" onSubmit={handleLogin}>
-          {/* Email Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Email</label>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={handleChange}
-              placeholder="you@example.com"
-              className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+      {/* Form */}
+      <form className="w-full space-y-6" onSubmit={handleLogin}>
+        {/* Email */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Email
+          </label>
+          <input
+            type="email"
+            name="email"
+            value={email}
+            onChange={handleChange}
+            placeholder="you@example.com"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            required
+          />
+        </div>
 
-          {/* Password Field */}
-          <div>
-            <label className="block text-sm font-semibold text-gray-700 mb-1">Password</label>
-            <input
-              type="password"
-              name="password"
-              value={password}
-              onChange={handleChange}
-              placeholder="••••••••"
-              className="w-full px-4 py-2 border border-blue-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-            />
-          </div>
+        {/* Password */}
+        <div>
+          <label className="block text-sm font-semibold text-gray-700 mb-2">
+            Password
+          </label>
+          <input
+            type="password"
+            name="password"
+            value={password}
+            onChange={handleChange}
+            placeholder="••••••••"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 transition"
+            required
+          />
+        </div>
 
-          {/* Login Button */}
-          <button
-            type="submit"
-            className="w-full bg-blue-600 text-white py-2 rounded-lg font-medium hover:bg-blue-700 transition duration-300"
-          >
-            Login
-          </button>
-        </form>
+        {/* Submit Button */}
+        <button
+          type="submit"
+          className="w-full bg-indigo-600 text-white py-3 rounded-lg font-medium hover:bg-indigo-700 transition duration-300"
+        >
+          Login
+        </button>
+      </form>
 
-        {/* Signup Link */}
-        <p className="text-center text-sm mt-5 text-gray-700">
-          Don’t have an account?{" "}
-          <Link to="/signup" className="text-blue-700 font-semibold underline hover:text-black">
-            Sign Up
-          </Link>
-        </p>
+      {/* Signup Link */}
+      <p className="text-center text-sm mt-6 text-gray-700">
+        Don’t have an account?{" "}
+        <Link
+          to="/signup"
+          className="text-blue-600 font-semibold underline hover:text-blue-800 transition"
+        >
+          Sign Up
+        </Link>
+      </p>
+
+      {/* Footer (mobile) */}
+      <div className="mt-8 text-center text-xs text-gray-400 md:hidden">
+        © 2025 BrainBurst AI. All rights reserved. Developed by Sumit Vishwakarma
       </div>
     </div>
-  );
+  </div>
+);
 };
 
 export default Login;

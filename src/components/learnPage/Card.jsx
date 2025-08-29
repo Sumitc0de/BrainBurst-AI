@@ -16,7 +16,7 @@ const Card = ({ topic, onView }) => {
   }, [topic]); // runs whenever topic changes
 
   return (
-    <div className="bg-white shadow-lg rounded-2xl p-5 border border-gray-200">
+    <div className="bg-white shadow-lg rounded-2xl p-5 border transition-transform hover:scale-[1.02] duration-200 border-gray-200">
       <h2 className="text-xl font-bold text-gray-800 mb-1">{topic}</h2>
    <p className="text-sm text-gray-500 mb-1">
   {topicLength === 0 ? "Create Topic" : `📋 ${topicLength} Topics`}
