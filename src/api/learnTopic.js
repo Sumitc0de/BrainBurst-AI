@@ -1,0 +1,86 @@
+
+
+import { GoogleGenAI } from '@google/genai';
+import axios from "axios";
+
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+// Point to your FastAPI backend
+const API = axios.create({
+  baseURL: "http://127.0.0.1:8000", // 🔥 change to your backend URL if deployed
+});
+
+const learnTopic = async (topic,title) => {
+
+// const prompt = `
+// Generate a well-structured learning content for the topic: "${topic}".
+// Return the response ONLY in valid JSON format, like this:
+
+// {
+//   "topic": "${topic}",
+//   "introduction": "... (you may use Markdown like **bold**, *italic*, \`inline code\` inside values) ...",
+//   "detailedExplanation": "...",
+//   "codeExamples": ["..."],
+//   "useCases": ["...", "..."],
+//   "goodPractices": ["...", "..."],
+//   "conclusion": "..."
+// }
+// Use markdown foramting for all attributes like use in the example above.
+// Do not include \`\`\` fences, headings, or extra text outside JSON.
+// Make sure that codeExamples is an array of strings, each string being a code snippet.
+// Make sure the JSON is properly formatted with no extra text, no markdown, no explanation.
+// `;
+
+const prompt = `
+Generate a well-structured learning content for the topic: "${topic}".
+The content should be strictly related to the topic: "${topic}".
+Return the response ONLY in valid JSON format, like this:
+
+{
+  "topic": "${topic}",
+  "introduction": "... (you may use Markdown like **bold**, *italic*, \`inline code\` inside values) ...",
+  "detailedExplanation": "...",
+  "codeExamples": ["..."],
+  "useCases": ["...", "..."],
+  "goodPractices": ["...", "..."],
+  "conclusion": "..."
+}
+
+Use markdown formatting for all attributes like in the example above.
+Do not include \`\`\` fences, headings, or extra text outside JSON.
+Make sure that codeExamples is an array of strings, each string being a code snippet.
+Make sure the JSON is properly formatted with no extra text, no markdown, no explanation.
+The topic for which content is to be generated is: "${title}".
+`;
+
+
+ try {
+    // ✅ 1. Call Gemini
+    const response = await ai.models.generateContent({
+      model: "gemini-2.0-flash-001",
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+    });
+
+    const rawtext = response.candidates[0].content.parts[0].text;
+
+    // ✅ 2. Clean any code fences
+    const cleaned = rawtext
+      .replace(/```json/gi, "")
+      .replace(/```/g, "")
+      .trim();
+
+    // ✅ 3. Parse JSON
+    let data = JSON.parse(cleaned);
+
+    // ✅ 4. Save to FastAPI backend
+    await API.post("/save/", data);
+
+    return data; // return for frontend use as well
+  } catch (error) {
+    console.error("❌ Error in learnTopic:", error);
+    return null;
+  }
+};
+
+export default learnTopic;

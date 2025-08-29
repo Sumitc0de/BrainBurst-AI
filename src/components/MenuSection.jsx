@@ -6,7 +6,6 @@ const menuItems = [
   { name: "Learn", path: "/learn" },
   { name: "Explore Quizzes", path: "/explore" },
   { name: "My Quizzes", path: "/my-quizzes" },
-  { name: "My Progress", path: "/progress" },
 ];
 
 const linkClasses = ({ isActive }) =>
@@ -95,7 +94,8 @@ const MenuSection = () => {
 
           {/* Footer */}
           <div className="mt-auto pt-10 text-sm text-gray-400">
-            © 2025 BrainBurst AI. All rights reserved.
+           © 2025 BrainBurst AI. All rights reserved.
+            & developed by Sumit Vishwakarma
           </div>
         </div>
       </div>

@@ -40,7 +40,7 @@ const QuizDetails = ({ onClose, quiz }) => {
         <div className="grid grid-cols-2 gap-4 mb-6 text-gray-700 text-sm">
           <div>
             <span className="font-semibold">📌 Number of Questions: </span>
-            {quiz.questions}
+            {quiz.questions?.length || 0}
           </div>
           <div>
             <span className="font-semibold">⏱ Total Time: </span>
@@ -48,7 +48,7 @@ const QuizDetails = ({ onClose, quiz }) => {
           </div>
           <div>
             <span className="font-semibold">🧮 Total Marks: </span>
-            {quiz.questions * 10}
+            {(quiz.questions?.length || 0) * 10}
           </div>
         </div>
 

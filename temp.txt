@@ -1,0 +1,117 @@
+const webDevTopics = [
+  // Basics
+  "HTML Basics",
+  "CSS Basics",
+  "JavaScript Basics",
+  
+  // Advanced HTML & CSS
+  "Forms and Validation",
+  "Semantic HTML",
+  "CSS Flexbox",
+  "CSS Grid",
+  "Responsive Design",
+  "CSS Animations & Transitions",
+  "Tailwind CSS / Bootstrap",
+
+  // JavaScript (Intermediate → Advanced)
+  "DOM Manipulation",
+  "ES6+ Features",
+  "Events & Event Delegation",
+  "Promises & Async/Await",
+  "Modules & Bundling",
+  "Error Handling",
+  "LocalStorage & SessionStorage",
+
+  // Version Control
+  "Git Basics",
+  "GitHub / GitLab / Bitbucket",
+  "Branching & Merging",
+  
+  // Frontend Frameworks
+  "React Basics",
+  "React Hooks",
+  "React Router",
+  "State Management (Context API / Redux)",
+  "React Performance Optimization",
+
+  // Backend
+  "Node.js Basics",
+  "Express.js",
+  "REST APIs",
+  "Authentication & Authorization (JWT, OAuth)",
+  "File Uploads",
+  "Error Handling in Backend",
+  
+  // Database
+  "SQL Basics",
+  "NoSQL Basics (MongoDB)",
+  "Mongoose / Prisma ORM",
+  "Database Relationships",
+
+  // Advanced Topics
+  "TypeScript",
+  "Next.js",
+  "GraphQL",
+  "Server-Side Rendering (SSR)",
+  "Static Site Generation (SSG)",
+  "WebSockets (Real-time apps)",
+  
+  // Deployment & DevOps
+  "Hosting (Vercel, Netlify, Render, AWS)",
+  "CI/CD Basics",
+  "Docker Fundamentals",
+  "Environment Variables & Secrets",
+  
+  // Extras
+  "Testing (Jest, React Testing Library, Mocha/Chai)",
+  "Security Best Practices",
+  "Performance Optimization",
+  "Accessibility (a11y)",
+  "Progressive Web Apps (PWA)"
+];
+
+
+
+// import { GoogleGenAI } from '@google/genai';
+
+// const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
+// const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
+
+// const learnTopic = async (topic) => {
+
+//     const prompt = `"Generate a well-structured learning content for the topic: ${topic}. The response should be in clear text format with the following sections:
+
+// Introduction – Explain the topic in simple terms.
+
+// Detailed Explanation – Cover the key concepts, rules, and examples.
+
+// Code Examples (if applicable) – Provide beginner-friendly examples.
+
+// Use Cases / Applications – Where and why this concept is useful.
+
+// Good Practices – Share recommended ways to use/learn/apply the topic.
+
+// Conclusion – Summarize the key takeaways.
+
+// Make the explanation beginner-friendly and concise, avoiding unnecessary complexity.
+
+// `;
+
+//     const response = await ai.models.generateContent({
+//         model: 'gemini-2.0-flash-001',
+//         contents: [{ role: "user", parts: [{ text: prompt }] }],
+//     });
+
+//     console.log(response.text);
+
+//     const rawtext = response.text.trim();
+//    const cleanText = rawtext
+//   .replace(/\*\*/g, "")         // remove **
+//   .replace(/```[\s\S]*?```/g, "") // remove ``` code blocks ```
+//   .replace(/#{1,6}\s*/g, "")    // remove headings like ### 
+//   .replace(/[_*`]/g, "");       // remove _, *, `
+//     return cleanText;
+
+// }
+
+// export default learnTopic;

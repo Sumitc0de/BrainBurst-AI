@@ -11,7 +11,7 @@ const UserProfile = () => {
   }
 
   return (
-    <div className="relative w-fit h-12 rounded-full cursor-pointer flex items-center justify-center shadow-md" title={userName}>
+    <div className="relative w-fit h-12 mt-5 rounded-full cursor-pointer flex items-center justify-center shadow-md" title={userName}>
       {/* <img
         src="https://img.freepik.com/free-vector/user-blue-gradient_78370-4692.jpg"
         alt="User"

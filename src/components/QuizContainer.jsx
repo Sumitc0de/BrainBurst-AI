@@ -30,8 +30,8 @@ const QuizContainer = () => {
   };
 
   return (
-    <div className="flex-1 h-screen px-4 py-4 flex flex-col overflow-y-scroll ">
-      <div className="w-full pt-5 flex items-center justify-between">
+    <div className="mt-10 sm:mt-0 h-fit px-4 flex flex-col  ">
+      <div className="w-full flex items-center justify-between">
         <h1 className="mt-8 md:mt-0 text-2xl font-semibold text-gray-800">
           Welcome back, <span className="font-bold">{user?.name || "Guest"}</span>
         </h1>
@@ -73,9 +73,10 @@ const QuizContainer = () => {
         <QuizDetails onClose={handleClose} quiz={selectedQuiz} />
       )}
 
-      {/* Footer (mobile only) */}
-      <div className="md:hidden mt-auto pt-10 text-center text-sm text-gray-400">
-        © 2025 BrainBurst AI. All rights reserved.
+              {/* Footer (mobile only) */}
+      <div className="md:hidden py-4 w-full text-center text-sm text-gray-400">
+         © 2025 BrainBurst AI. All rights reserved.
+            & developed by Sumit Vishwakarma
       </div>
     </div>
   );
