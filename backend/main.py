@@ -36,6 +36,11 @@ class AIContent(BaseModel):
     goodPractices: list[str]
     conclusion: str
 
+
+@app.get("/")
+def root():
+    return {"message": "Backend running"}
+
 # ✅ Save AI content (JSONBin: one bin per topic)
 @app.post("/save/")
 def save_content(data: AIContent):
