@@ -8,7 +8,7 @@ const ai = new GoogleGenAI({ apiKey: GEMINI_API_KEY });
 
 // Point to your FastAPI backend
 const API = axios.create({
-  baseURL: "http://127.0.0.1:8000", // 🔥 change to your backend URL if deployed
+  baseURL: import.meta.env.VITE_API_URL || "http://127.0.0.1:8000",
 });
 
 const learnTopic = async (topic,title) => {
