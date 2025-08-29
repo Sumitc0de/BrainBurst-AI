@@ -15,7 +15,7 @@ app.add_middleware(
     allow_origins=[
         "http://localhost:5173",
         "http://localhost:3000",
-        "https://your-frontend.vercel.app"  # replace with actual Vercel URL
+        "https://brainburst-ai.vercel.app/"  # replace with actual Vercel URL
     ],
     allow_credentials=True,
     allow_methods=["*"],

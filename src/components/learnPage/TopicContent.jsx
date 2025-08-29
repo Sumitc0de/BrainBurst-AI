@@ -24,7 +24,8 @@ const TopicContent = () => {
       setLoading(true);
       try {
         // ✅ 1. Try reading from backend first
-        const res = await fetch(`http://localhost:8000/read/${topicName}`);   // Load from the backend 
+        const backendUrl = import.meta.env.VITE_API_URL; 
+        const res = await fetch(`${backendUrl}/read/${topicName}`);   // Load from the backend 
         if (res.ok) {
           const data = await res.json();
           // console.log("✅ Loaded from backend:", data);
