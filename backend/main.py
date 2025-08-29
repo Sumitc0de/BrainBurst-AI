@@ -1,27 +1,32 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from dotenv import load_dotenv
 from pydantic import BaseModel
-import os, json
+import os, requests
+
+# Load .env for local development
+load_dotenv()
 
 app = FastAPI()
 
-# ✅ Allow CORS (for frontend on localhost + Vercel)
+# ✅ Allow CORS (local + Vercel frontend)
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173", 
-        "http://localhost:3000", 
-        "https://your-frontend.vercel.app"  # replace with your Vercel URL after deploy
+        "http://localhost:5173",
+        "http://localhost:3000",
+        "https://your-frontend.vercel.app"  # replace with actual Vercel URL
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-# ✅ Persistent storage directory for Render
-STORAGE_DIR = "/opt/render/project/src/storage"
+# ✅ JSONBin config
+JSONBIN_API_KEY = os.getenv("JSONBIN_API_KEY")
+JSONBIN_BASE_URL = "https://api.jsonbin.io/v3"
 
-# Data model for structured AI content
+# Data model
 class AIContent(BaseModel):
     topic: str
     introduction: str
@@ -31,28 +36,45 @@ class AIContent(BaseModel):
     goodPractices: list[str]
     conclusion: str
 
-# ✅ Save AI content (JSON) to file
+# ✅ Save AI content (JSONBin: one bin per topic)
 @app.post("/save/")
 def save_content(data: AIContent):
-    os.makedirs(STORAGE_DIR, exist_ok=True)
-    safe_topic = data.topic.replace(" ", "_").lower()
-    filename = f"{STORAGE_DIR}/{safe_topic}.json"
+    if not JSONBIN_API_KEY:
+        raise HTTPException(status_code=500, detail="JSONBIN_API_KEY not set")
 
-    with open(filename, "w", encoding="utf-8") as f:
-        json.dump(data.dict(), f, indent=4, ensure_ascii=False)
+    headers = {
+        "Content-Type": "application/json",
+        "X-Master-Key": JSONBIN_API_KEY
+    }
 
-    return {"message": "Content saved successfully!", "file_path": filename}
+    # Use topic name as bin "id" (safe name)
+    bin_id = data.topic.replace(" ", "_").lower()
 
-# ✅ Read AI content (JSON) from file
+    # Upsert: create or update
+    url = f"{JSONBIN_BASE_URL}/b/{bin_id}"
+    response = requests.put(url, json=data.dict(), headers=headers)
+
+    if response.status_code not in (200, 201):
+        raise HTTPException(status_code=response.status_code, detail=response.text)
+
+    return {"message": "Content saved successfully!"}
+
+# ✅ Read AI content
 @app.get("/read/{topic}")
 def read_content(topic: str):
-    safe_topic = topic.replace(" ", "_").lower()
-    filename = f"{STORAGE_DIR}/{safe_topic}.json"
+    if not JSONBIN_API_KEY:
+        raise HTTPException(status_code=500, detail="JSONBIN_API_KEY not set")
 
-    if not os.path.exists(filename):
-        raise HTTPException(status_code=404, detail="File not found")
+    headers = {"X-Master-Key": JSONBIN_API_KEY}
+    bin_id = topic.replace(" ", "_").lower()
+    url = f"{JSONBIN_BASE_URL}/b/{bin_id}/latest"
 
-    with open(filename, "r", encoding="utf-8") as f:
-        content = json.load(f)
+    response = requests.get(url, headers=headers)
 
-    return content
+    if response.status_code == 404:
+        raise HTTPException(status_code=404, detail="Topic not found")
+
+    if response.status_code != 200:
+        raise HTTPException(status_code=response.status_code, detail=response.text)
+
+    return response.json()["record"]
