@@ -19,7 +19,7 @@ const webDevTopics = [
   "Events & Event Delegation",
   "Promises & Async/Await",
   "Modules & Bundling",
-  "Error Handling",
+  "Error Handling"
   "LocalStorage & SessionStorage",
 
   // Version Control
