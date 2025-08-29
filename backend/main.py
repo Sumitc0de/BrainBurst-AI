@@ -13,14 +13,16 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "http://localhost:5173",
-        "http://localhost:3000",
-        "https://brainburst-ai.vercel.app"
+        "http://localhost:5173",   # dev
+        "http://localhost:3000",   # dev
+        "https://brainburst-ai.vercel.app"  # prod
     ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+
 
 # ✅ JSONBin Config
 JSONBIN_API_KEY = os.getenv("JSONBIN_API_KEY")
