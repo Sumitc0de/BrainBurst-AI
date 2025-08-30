@@ -73,13 +73,21 @@ BrainBurst-AI/
 ---
 
 ## 📸 Screenshots
-*(Add screenshots or gifs here for better presentation)*
 
 - **Home Page**
+- ![Home Page](/home.png)
+  
 - **Create Quiz**
+- ![Create Page](/create.png)
+
 - **Learn Section**
+- ![Learn Section](/learn.png)
+
 - **Explore Quizzes**
-- **User Dashboard**
+- ![Explore Section](/explore.png)
+
+- **All Quizzes**
+- ![AllQuiz Section](/allquiz.png)
 
 ---
 
@@ -120,6 +128,7 @@ Create a `.env` file in the root directory:
 VITE_GEMINI_API_KEY=your_gemini_api_key_here
 VITE_JSONBIN_API_KEY=your_jsonbin_api_key_here
 VITE_JSONBIN_BIN_ID=your_bin_id_here
+VITE_JSONBIN_QUIZ_ID=your_quiz_bin_id_here
 ```
 
 ---
@@ -139,4 +148,4 @@ Feel free to **fork this repo** and submit a pull request.
 ---
 
 ## 📜 License
-This project is licensed under the **MIT License**.
+Copyright (c) 2025 **Sumit Vishwakarma**
