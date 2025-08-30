@@ -75,19 +75,19 @@ BrainBurst-AI/
 ## 📸 Screenshots
 
 - **Home Page**
-- ![Home Page](/home.png)
+- ![Home Page](public/home.png)
   
 - **Create Quiz**
-- ![Create Page](/create.png)
+- ![Create Page](public/create.png)
 
 - **Learn Section**
-- ![Learn Section](/learn.png)
+- ![Learn Section](public/learn.png)
 
 - **Explore Quizzes**
-- ![Explore Section](/explore.png)
+- ![Explore Section](public/explore.png)
 
 - **All Quizzes**
-- ![AllQuiz Section](/allquiz.png)
+- ![AllQuiz Section](public/allquiz.png)
 
 ---
 
