@@ -32,6 +32,7 @@ Return the entire quiz as a single JSON object with the following structure:
 }
 
 - The "id" field must be a unique identifier for this quiz (for example, a UUID or a random alphanumeric string).
+- Try to generate new quiz every TIME.
 - Only return valid JSON. Do not include explanations or any extra text.`
     ;
   const response = await ai.models.generateContent({
