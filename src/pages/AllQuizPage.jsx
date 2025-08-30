@@ -28,22 +28,22 @@ return (
         🎯 Explore Your Quizzes
       </h1>
 
-      {/* Quizzes Grid */}
-      <div
-        id="Quiz_Container"
-        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"
-      >
-        {quizzes && quizzes.length > 0 ? (
-          quizzes.map((quiz) => (
-            <QuizCard
-              key={quiz.id}
-              quiz={quiz}
-              onView={() => handleViewQuiz(quiz)}
-              onDelete={() => handleDeleteQuiz(quiz.id)}
-            />
-          ))
+      {/* Quiz Grid */}
+      <div className="flex-1">
+        
+        { quizzes && quizzes.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {quizzes.map((quiz) => (
+              <QuizCard
+                key={quiz.id}
+                quiz={quiz}
+                onView={() => handleViewQuiz(quiz)}
+                onDelete={() => handleDeleteQuiz(quiz.id)}
+              />
+            ))}
+          </div>
         ) : (
-          <p className="text-gray-500 col-span-full text-center text-lg">
+          <p className="text-gray-500 text-center text-lg mt-10">
             No quizzes available. Create your first one!
           </p>
         )}
