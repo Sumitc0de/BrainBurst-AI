@@ -2,7 +2,7 @@
 An AI-powered quiz-generating web app that helps users **learn, practice, and test knowledge** all in one place.  
 Powered by **Gemini API** for intelligent quiz creation and **JSONBin** for storing quizzes like a lightweight backend.
 
-🌐 **Live Demo:** [https://your-live-link.com](https://your-live-link.com) *(replace with actual link)*
+🌐 **Live Demo:** [BrainBurst AI](https://brainburstai.vercel.app/)
 
 ---
 
@@ -75,19 +75,19 @@ BrainBurst-AI/
 ## 📸 Screenshots
 
 - **Home Page**
-- ![Home Page](public/home.png)
+  ![Home Page](public/home.png)
   
 - **Create Quiz**
-- ![Create Page](public/create.png)
+  ![Create Page](public/create.png)
 
 - **Learn Section**
-- ![Learn Section](public/learn.png)
+  ![Learn Section](public/learn.png)
 
 - **Explore Quizzes**
-- ![Explore Section](public/explore.png)
+  ![Explore Section](public/explore.png)
 
 - **All Quizzes**
-- ![AllQuiz Section](public/allquiz.png)
+  ![AllQuiz Section](public/allquiz.png)
 
 ---
 
