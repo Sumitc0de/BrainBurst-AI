@@ -49,6 +49,7 @@ Return the entire quiz as a single JSON object with the following structure:
 
 Rules:
 - The "id" field must be a unique identifier (UUID or alphanumeric string).
+- Try to create new quiz every TIME.
 - Only return valid JSON (no extra text).
 `;
 
