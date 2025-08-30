@@ -5,6 +5,7 @@ import loader from "../assets/loader.svg"; // ✅ default import
 const QuizDetails = ({ onClose, quiz }) => {
   const { handleStartQuiz } = quizAuth();
   const [loading, setLoading] = useState(false);
+ 
 
   const handleClick = async (quiz) => {
     try {

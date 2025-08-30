@@ -13,6 +13,7 @@ const QuizContainer = () => {
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
 
+
   const handleViewQuiz = (quiz) => {
     setSelectedQuiz(quiz);
     setShowQuizDetails(true);
