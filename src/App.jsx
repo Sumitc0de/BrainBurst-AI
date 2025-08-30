@@ -17,7 +17,7 @@ function App() {
   return (
     <AuthProvider>
       <Routes>
-        {/* Redirect '/' to QuizContainer if logged in, else to login */}
+        {/* Protected layout routes */}
         <Route
           path="/"
           element={
@@ -36,7 +36,7 @@ function App() {
           <Route path="my-quizzes" element={<AllQuizPage />} />
         </Route>
 
-        {/* Authentication routes */}
+        {/* Auth routes */}
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
 
@@ -50,11 +50,12 @@ function App() {
           }
         />
 
-        {/* Catch all: redirect unknown routes */}
+        {/* Catch all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
     </AuthProvider>
   );
 }
+
 
 export default App;

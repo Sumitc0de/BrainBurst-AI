@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 const QuizContainer = () => {
   const { user } = useAuth();
-  const { quizzes, handleDeleteQuiz, fetchQuizzes } = quizAuth(); // assuming fetchQuizzes exists
+  const { quizzes, handleDeleteQuiz } = quizAuth(); // no fetchQuizzes needed
   const [showQuizDetails, setShowQuizDetails] = useState(false);
   const [selectedQuiz, setSelectedQuiz] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -25,29 +25,22 @@ const QuizContainer = () => {
 
   const handleCreateQuiz = () => {
     if (user) navigate("/create-quiz");
+    else navigate("/login");
   };
 
-  // Fetch quizzes and show loading
+  // Simulate loading effect
   useEffect(() => {
-    const loadQuizzes = async () => {
-      setLoading(true);
-      try {
-        if (fetchQuizzes) await fetchQuizzes(); // fetch quizzes if context provides this
-      } catch (err) {
-        console.error("Failed to fetch quizzes:", err);
-      } finally {
-        setLoading(false);
-      }
-    };
-    loadQuizzes();
-  }, [fetchQuizzes]);
+    const timer = setTimeout(() => setLoading(false), 1000); // 1 second loading
+    return () => clearTimeout(timer);
+  }, []);
 
   return (
     <div className="w-full min-h-screen px-6 py-10 bg-gradient-to-b from-indigo-50 to-white flex flex-col">
       {/* Header */}
       <div className="mt-10 md:mt-0 w-full mb-10">
-        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4 md:mb-0">
-          Welcome back, <span className="text-indigo-600">{user?.name || "Guest"}</span> 👋
+        <h1 className="text-3xl md:text-4xl font-extrabold text-gray-800 mb-4">
+          Welcome back,{" "}
+          <span className="text-indigo-600">{user?.name || "Guest"}</span> 👋
         </h1>
       </div>
 
@@ -62,28 +55,28 @@ const QuizContainer = () => {
       </div>
 
       {/* Quiz Grid */}
-      {loading ? (
-        <div className="col-span-full flex justify-center items-center mt-10">
-          <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600 border-b-4"></div>
-        </div>
-      ) : (
-        <div id="Quiz_Container" className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {quizzes && quizzes.length > 0 ? (
-            quizzes.map((quiz) => (
+      <div className="flex-1">
+        {loading ? (
+          <div className="flex justify-center items-center mt-10">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600 border-b-4"></div>
+          </div>
+        ) : quizzes && quizzes.length > 0 ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {quizzes.map((quiz) => (
               <QuizCard
                 key={quiz.id}
                 quiz={quiz}
                 onView={() => handleViewQuiz(quiz)}
                 onDelete={() => handleDeleteQuiz(quiz.id)}
               />
-            ))
-          ) : (
-            <p className="text-gray-500 col-span-full text-center text-lg mt-10">
-              No quizzes available. Create your first one!
-            </p>
-          )}
-        </div>
-      )}
+            ))}
+          </div>
+        ) : (
+          <p className="text-gray-500 text-center text-lg mt-10">
+            No quizzes available. Create your first one!
+          </p>
+        )}
+      </div>
 
       {/* Quiz Details Modal */}
       {showQuizDetails && selectedQuiz && (
@@ -91,7 +84,7 @@ const QuizContainer = () => {
       )}
 
       {/* Footer */}
-      <div className="pt-6 md:mt-12 md:hidden w-full text-center text-sm text-gray-400">
+      <div className="pt-6 md:mt-12 mb-4 md:hidden w-full text-center text-sm text-gray-400">
         © 2025 BrainBurst AI. All rights reserved. Developed by Sumit Vishwakarma
       </div>
     </div>

@@ -7,9 +7,9 @@ const BASE_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
 // Difficulty → Timer mapping
 const difficultyTimerMap = {
-  easy: 60,
-  medium: 120,
-  hard: 180,
+  easy: 1,
+  medium: 2,
+  hard: 3,
 };
 
 // Helper randomizer
@@ -73,6 +73,7 @@ export const generateQuizzes = async (topics, existing = []) => {
         difficulty,
         timer,
         questions: aiQuiz.questions || [],
+        no_questions: aiQuiz.questions.length
       };
 
       quizzes.push(quiz);

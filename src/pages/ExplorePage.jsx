@@ -4,9 +4,12 @@ import QuizDetails from "../components/QuizDetails.jsx";
 import { prepareQuizzes } from "../utils/generateQuiz.js";
 
 const topics = {
-  frontend: ["HTML", "CSS"],
-  backend: ["Node.js"],
-  programming: ["C"],
+  frontend: ["HTML", "CSS","JavaScript", "React"],
+  backend: ["Node.js", "Express", "Databases", "APIs"],
+  programming: ["C", "C++", "Python",],
+  maths : ["Algebra", "Geometry", ],
+  generalTech: ["Computer Networks", "Operating Systems"]
+
 };
 
 const ExplorePage = () => {
@@ -56,9 +59,9 @@ const ExplorePage = () => {
       </h1>
 
       {loading ? (
-        <div className="flex justify-center items-center py-20">
-          <div className="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
+       <div className="flex justify-center items-center mt-10">
+            <div className="animate-spin rounded-full h-12 w-12 border-t-4 border-indigo-600 border-b-4"></div>
+          </div>
       ) : (
         Object.entries(quizzesByCategory).map(([category, quizzes]) => (
           <div key={category} className="mb-10">
@@ -69,7 +72,7 @@ const ExplorePage = () => {
             </h2>
 
             {/* Quiz Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               {quizzes.map((quiz) => (
                 <QuizCard
                   key={quiz.id}

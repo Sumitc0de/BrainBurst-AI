@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation, useParams } from "react-router-dom";
-import learnTopic from "../../api/learnTopic"; 
+import learnTopic from "../../utils/learnTopic"; 
 import ReactMarkdown from "react-markdown";
 
 

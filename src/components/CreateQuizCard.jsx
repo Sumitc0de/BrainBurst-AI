@@ -35,8 +35,8 @@ return (
         <FaHashtag className="hidden md:block text-green-600 text-2xl md:text-3xl" />
         <input
           type="number"
-          name="questions"
-          value={formData.questions}
+          name="no_questions"
+          value={formData.no_questions}
           onChange={handleChange}
           min="1"
           placeholder="Number of Questions (e.g., 10)"

@@ -14,7 +14,7 @@ const QuizProvider = ({ children }) => {
   const [quizzes, setQuizzes] = useState([]); // quizzes owned by this user
   const [formData, setFormData] = useState({
     title: "",
-    questions: "",
+    no_questions: "",
     timer: 1,
     difficulty: "",
   });
@@ -49,7 +49,6 @@ const QuizProvider = ({ children }) => {
       ...formData,
       id: quizId,
       owner: user.email,
-      createdAt: new Date().toISOString(),
     };
 
     // Save quiz globally
@@ -80,7 +79,7 @@ const QuizProvider = ({ children }) => {
     // Reset form
     setFormData({
       title: "",
-      questions: "",
+      no_questions: "",
       timer: "",
       difficulty: "",
     });
@@ -92,8 +91,9 @@ navigate("/");
   // ▶ Start quiz
   const handleStartQuiz = async (quiz) => {
     if (quiz) {
-      const { title, questions, difficulty, timer } = quiz;
-      const data = await callGemini(title, questions, difficulty, timer);
+      const { title, no_questions, difficulty, timer } = quiz;
+      // console.log(quiz);
+      const data = await callGemini(title, no_questions, difficulty, timer);
       setQuizData(data);
       navigate("/quiz", { state: { data, timer } });
     }

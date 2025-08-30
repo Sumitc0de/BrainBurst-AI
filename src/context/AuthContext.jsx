@@ -8,13 +8,15 @@ const STORAGE_KEYS = {
   currentUser: "brainburst_user",
 };
 
-const AuthProvider = ({ children }) => {  // authentication context provider
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true); // Added loading state
 
-  //  Load current user on initial mount
+  // Load current user on initial mount
   useEffect(() => {
     const savedUser = localStorage.getItem(STORAGE_KEYS.currentUser);
     if (savedUser) setUser(JSON.parse(savedUser));
+    setLoading(false); // Done checking auth
   }, []);
 
   // Signup
@@ -23,8 +25,8 @@ const AuthProvider = ({ children }) => {  // authentication context provider
 
     if (savedUsers.some((u) => u.email === email)) return false; // user exists
 
-    const newUser = { name, email, password};   // creating new user
-    const updatedUsers = [...savedUsers, newUser];                // update the newUser by creating a temp savedUser
+    const newUser = { name, email, password };
+    const updatedUsers = [...savedUsers, newUser];
 
     localStorage.setItem(STORAGE_KEYS.users, JSON.stringify(updatedUsers));
     localStorage.setItem(STORAGE_KEYS.currentUser, JSON.stringify(newUser));
@@ -54,7 +56,7 @@ const AuthProvider = ({ children }) => {  // authentication context provider
   };
 
   return (
-    <AuthContext.Provider value={{ user, signup, login, logout }}>
+    <AuthContext.Provider value={{ user, loading, signup, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

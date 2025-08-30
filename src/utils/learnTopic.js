@@ -114,7 +114,7 @@
 
 
 import { fetchExistingData, saveData } from "./jsonbin";
-import { generateContent } from "./aiGenerator";
+import { generateContent } from "../api/aiGenerator";
 
 // ✅ Orchestrator
 const learnTopic = async (topicName, title) => {
@@ -130,7 +130,7 @@ const learnTopic = async (topicName, title) => {
     );
 
     if (found) {
-      console.log("📂 Found in JSONBin:", found);
+      console.log("📂 Found in JSONBin:");
       return found;
     }
 
@@ -142,7 +142,7 @@ const learnTopic = async (topicName, title) => {
     const updatedArray = [...existingData, newData];
     await saveData(updatedArray);
 
-    console.log("✅ New topic saved:", newData);
+    console.log("✅ New topic saved:");
     return newData;
   } catch (err) {
     console.error("❌ Error in learnTopic:", err);

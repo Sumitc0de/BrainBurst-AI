@@ -1,14 +1,17 @@
 import { MdDelete } from "react-icons/md";
 
 const QuizCard = ({ quiz, onView, onDelete }) => {
+  const questionCount = quiz.no_questions
+    
   return (
+    <>
     <div className="bg-white shadow-lg rounded-2xl p-5 border border-gray-200 transition-transform hover:scale-[1.02] duration-200">
       <h2 className="text-xl font-bold text-gray-800 mb-1">
         {quiz.title || "Untitled Quiz"}
       </h2>
 
       <p className="text-sm text-gray-500 mb-1">
-        📋 {quiz.questions?.length || 0} Questions · ⏱️ {quiz.timer || 1} min
+        📋{questionCount} Questions · ⏱️ {quiz.timer || 1} min
       </p>
 
       <p className="text-xs text-indigo-500 mb-3">
@@ -37,6 +40,7 @@ const QuizCard = ({ quiz, onView, onDelete }) => {
         </div>
       </div>
     </div>
+    </>
   );
 };
 

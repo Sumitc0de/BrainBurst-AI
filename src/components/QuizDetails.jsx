@@ -15,7 +15,7 @@ const QuizDetails = ({ onClose, quiz }) => {
       setLoading(false); // reset if failed
     }
   };
-  console.log("Quiz Details:", quiz);
+  // console.log("Quiz Details:", quiz);
 
  return (
   <div className="fixed inset-0 z-50 bg-black/60 flex items-center justify-center p-4 md:p-0">
@@ -40,13 +40,13 @@ const QuizDetails = ({ onClose, quiz }) => {
       {/* Quiz Info */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 text-gray-700 text-sm md:text-base">
         <div>
-          <span className="font-semibold">📌 Questions:</span> {quiz.questions?.length || 0}
+          <span className="font-semibold">📌 Questions:</span> {quiz.no_questions || 0}
         </div>
         <div>
-          <span className="font-semibold">⏱ Time:</span> {quiz.timer} mins
+          <span className="font-semibold">⏱ Time:</span> {quiz.timer} min
         </div>
         <div>
-          <span className="font-semibold">🧮 Total Marks:</span> {(quiz.questions?.length || 0) * 10}
+          <span className="font-semibold">🧮 Total Marks:</span> {(quiz.no_questions || 0) * 10}
         </div>
         <div>
           <span className="font-semibold">Difficulty:</span> {quiz.difficulty || "N/A"}
