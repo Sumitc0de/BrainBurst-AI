@@ -5,7 +5,7 @@ const QuizCard = ({ quiz, onView, onDelete }) => {
   const questionCount = quiz.no_questions
 
   const location = useLocation();
-  console.log(location.pathname);
+  // console.log(location.pathname);
 
   return (
     <>
